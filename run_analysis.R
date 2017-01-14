@@ -59,7 +59,7 @@ indiced_joined_data$subjects <- joined_subjects[[1]]
 
 
 
-# Clean up the columnnames 
+# 4. Clean up the columnnames 
 names(indiced_joined_data) <- gsub("\\(\\)","",names(indiced_joined_data)) 
 names(indiced_joined_data) <- gsub("-","",names(indiced_joined_data)) 
 
