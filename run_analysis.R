@@ -41,7 +41,7 @@ std_indices <- grep("std",features[[2]])
 merged_indices <- c(means_indices,std_indices)  
 
 
-# Extract relevant joined data from the indices  
+# Extract relevant joined data through the indices  
 indiced_joined_data <- joined_data[merged_indices] 
 
 
