@@ -61,8 +61,6 @@ indiced_joined_data$subjects <- joined_subjects[[1]]
 
 # Clean up the columnnames 
 names(indiced_joined_data) <- gsub("\\(\\)","",names(indiced_joined_data)) 
-#names(indiced_joined_data) <- gsub("std","Std",names(indiced_joined_data)) 
-#names(indiced_joined_data) <- gsub("mean","Mean",names(indiced_joined_data)) 
 names(indiced_joined_data) <- gsub("-","",names(indiced_joined_data)) 
 
 
