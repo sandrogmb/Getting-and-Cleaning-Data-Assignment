@@ -52,7 +52,7 @@ The 'grep' function was used to extract all mean and std data from the merged da
 
 ## 3. Setting activity names in the data subset.
 
-The data subset was joined with the activityType table to include the descriptive activity names.
+The data subset was joined with the activity type table to include the descriptive activity names.
 
 ## 4. Setting labels on the data subset with descriptive variable names.
 
