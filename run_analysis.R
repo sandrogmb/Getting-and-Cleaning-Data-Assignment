@@ -51,7 +51,7 @@ indiced_joined_data <- joined_data[merged_indices]
 names(activity_labels) = c("Activityid","Activityname") 
 
 
-# Substitute the IDs with the merge function  
+# Substitute the IDs 
 activities <- merge(activity_labels,joined_labels,"Activityid") 
 indiced_joined_data$activities <- activities[[2]] 
 indiced_joined_data$subjects <- joined_subjects[[1]] 
@@ -69,5 +69,4 @@ second_set<-aggregate(indiced_joined_data[,1:79],list(activities = indiced_joine
 
 
  # write to file 
- write.table(indiced_joined_data, "clean_data.txt") 
  write.table(second_set,"second_set.txt",row.name=FALSE) 
