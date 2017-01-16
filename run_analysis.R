@@ -62,9 +62,9 @@ indiced_joined_data <- joined_data[merged_indices]
 names(activity_labels) = c("Activityid","Activityname") 
 
 # second step: merge the two files activity_labels and joined_labels 
-# activities <- merge(activity_labels,joined_labels,"Activityid") 
+activities <- merge(activity_labels,joined_labels,"Activityid") 
 
-# la seguente operazione dimostra che usando così merge ottengo un file sbagliato
+# la seguente operazione dimostra che usando così merge ottengo la seguente divisione del file
 #> tally(group_by(activities, Activityid, Activityname))
 #Source: local data frame [6 x 3]
 #Groups: Activityid [?]
@@ -80,13 +80,22 @@ names(activity_labels) = c("Activityid","Activityname")
 
 # la precedente è la stessa divisione del file joined_labels che si ottiene con il seguente comando
 #> tally(group_by(joined_labels, Activityid))
-
+#quindi il file activities è corretto (corrisponde alla stessa suddivisione per attività ottenuta da file ottenuti con +
+#script che danno risultati corretti
 
 
 # third step: join the column of activities and subjects to the dataset
-indiced_joined_data$activities <- activities[[2]] 
-indiced_joined_data$subjects <- joined_subjects[[1]] 
 
+#indiced_joined_data$activities <- activities[[2]] 
+#indiced_joined_data$subjects <- joined_subjects[[1]] 
+
+#dopo i due precedenti passaggi c'è l'errore perché non ottengo più 
+#le 180 righe (30 soggetti per 6 classi di attività) con tally 
+indiced_joined_data1 <- cbind(indiced_joined_data, joined_subjects) 
+indiced_joined_data1 <- cbind(indiced_joined_data1, activities) 
+indiced_joined_data <- indiced_joined_data1[,!names(indiced_joined_data1) %in% c("Activityid")]
+
+#tally(group_by(indiced_joined_data, Subjects, Activityname))
 
 
 # 4. Appropriately labels the data set with descriptive variable names
