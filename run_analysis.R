@@ -81,7 +81,8 @@ names(indiced_joined_data) <- gsub("-","",names(indiced_joined_data))
 # 5. Creates a second tidy data set with the average of each variable for each activity and each subject
 
 # Aggregate the dataset 
-second_set<-aggregate(indiced_joined_data[,1:79],list(activities = indiced_joined_data$activities, subjects=indiced_joined_data$subjects),mean, na.rm=TRUE)
+#nella seguente operazione c'è l'errore principale
+#second_set<-aggregate(indiced_joined_data[,1:79],list(activities = indiced_joined_data$activities, subjects=indiced_joined_data$subjects),mean, na.rm=TRUE)
 
  # write to file 
  write.table(second_set,"second_set.txt",row.name=FALSE) 
