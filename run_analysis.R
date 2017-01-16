@@ -38,11 +38,20 @@ names(joined_subjects) = c("Subjects")
 # 2. Extracting only the measurements on the mean and standard deviation for each measurement 
 
 #Extract the data for mean and std columns as a vector, and then merge the two vectors to get a single vector.  
-means_indices <- grep("mean",features[[2]]) 
-std_indices <- grep("std",features[[2]]) 
+
+#primo errore: non riesco a trovare le colonne che iniziano con M e S
+#means_indices <- grep("mean",features[[2]]) 
+#std_indices <- grep("std",features[[2]]) 
+
+#la versione corretta è la seguente
+means_indices <- grep("[Mm]ean",features[[2]]) 
+std_indices <- grep("[Ss]td",features[[2]]) 
+
+
 merged_indices <- c(means_indices,std_indices)  
 
-# Extract relevant joined data through the indices  
+# Extract relevant joined data through the indices 
+#così il seguente file è corretto
 indiced_joined_data <- joined_data[merged_indices] 
 
 
