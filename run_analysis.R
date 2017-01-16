@@ -62,7 +62,26 @@ indiced_joined_data <- joined_data[merged_indices]
 names(activity_labels) = c("Activityid","Activityname") 
 
 # second step: merge the two files activity_labels and joined_labels 
-activities <- merge(activity_labels,joined_labels,"Activityid") 
+# activities <- merge(activity_labels,joined_labels,"Activityid") 
+
+# la seguente operazione dimostra che usando così merge ottengo un file sbagliato
+#> tally(group_by(activities, Activityid, Activityname))
+#Source: local data frame [6 x 3]
+#Groups: Activityid [?]
+
+#  Activityid       Activityname     n
+#       <int>             <fctr> <int>
+#1          1            WALKING  1722
+#2          2   WALKING_UPSTAIRS  1544
+#3          3 WALKING_DOWNSTAIRS  1406
+#4          4            SITTING  1777
+#5          5           STANDING  1906
+#6          6             LAYING  1944
+
+# la precedente è la stessa divisione del file joined_labels che si ottiene con il seguente comando
+#> tally(group_by(joined_labels, Activityid))
+
+
 
 # third step: join the column of activities and subjects to the dataset
 indiced_joined_data$activities <- activities[[2]] 
@@ -84,5 +103,10 @@ names(indiced_joined_data) <- gsub("-","",names(indiced_joined_data))
 #nella seguente operazione c'è l'errore principale
 #second_set<-aggregate(indiced_joined_data[,1:79],list(activities = indiced_joined_data$activities, subjects=indiced_joined_data$subjects),mean, na.rm=TRUE)
 
+
+molten <- melt(indiced_joined_data,id.vars = c("subjects","activities"))
+out_df <- dcast(molten,subjects + activities ~ ...,mean)
+
+
  # write to file 
- write.table(second_set,"second_set.txt",row.name=FALSE) 
+ write.table(out_df,"second_set.txt",row.name=FALSE) 
