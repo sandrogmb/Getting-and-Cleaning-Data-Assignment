@@ -1,3 +1,5 @@
+#QUESTA VERSIONE NON DA' ESITO HA UN FILE CORRETTO
+#PROBABILMENTE PERCHE' FONDE PRIMA TEST E TRAIN DATA E DOPO SOGGETTI E LABELS (?)
 #The data were downloaded and a new session of RStudio was opened; 
 #the working directory in RStudio was changed to the folder where the data files exist
 
@@ -30,6 +32,7 @@ joined_subjects <- rbind(train_data_subject,test_data_subject)
 
 # Set the appropiate column names  
 names(joined_data) = features[[2]] 
+#oppure names(joined_data)<-features$V2
 names(joined_labels) = c("Activityid") 
 names(joined_subjects) = c("Subjects") 
 
@@ -91,8 +94,8 @@ activities <- merge(activity_labels,joined_labels,"Activityid")
 
 #dopo i due precedenti passaggi c'è l'errore perché non ottengo più 
 #le 180 righe (30 soggetti per 6 classi di attività) con tally 
-indiced_joined_data1 <- cbind(indiced_joined_data, joined_subjects) 
-indiced_joined_data1 <- cbind(indiced_joined_data1, activities) 
+indiced_joined_data1 <- cbind.data.frame(indiced_joined_data, joined_subjects) 
+indiced_joined_data1 <- cbind.data.frame(indiced_joined_data1, activities) 
 indiced_joined_data <- indiced_joined_data1[,!names(indiced_joined_data1) %in% c("Activityid")]
 
 #tally(group_by(indiced_joined_data, Subjects, Activityname))
@@ -113,7 +116,7 @@ names(indiced_joined_data) <- gsub("-","",names(indiced_joined_data))
 #second_set<-aggregate(indiced_joined_data[,1:79],list(activities = indiced_joined_data$activities, subjects=indiced_joined_data$subjects),mean, na.rm=TRUE)
 
 
-molten <- melt(indiced_joined_data,id.vars = c("subjects","activities"))
+molten <- melt(indiced_joined_data,id.vars = c("Subjects","Activityname"))
 out_df <- dcast(molten,subjects + activities ~ ...,mean)
 
 
